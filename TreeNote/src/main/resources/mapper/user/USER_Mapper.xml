@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leeyh85.mapper.USER_Mapper">
+
+	<select id="selectUserAll" parameterType="com.leeyh85.model.UserModel" resultType="com.leeyh85.model.UserModel">
+		SELECT	* 
+		FROM TBL_USER
+		<!-- WHERE id = #{id} -->
+	</select>
+	
+	<select id="selectUserInfo" parameterType="com.leeyh85.model.UserModel" resultType="com.leeyh85.model.UserModel">
+		-- 사용자 정보 반환
+		SELECT user_id, email, user_id 
+		FROM TBL_USER
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="selectExistUser" parameterType="com.leeyh85.model.UserModel" resultType="int">
+		-- ID와 PW가 일치하는지 확인
+		SELECT COUNT(*) AS cnt
+		FROM TBL_USER
+		<where>
+			<if test="gbn=='check_idpw'">
+				user_id = #{user_id}
+			AND password = #{password}
+			</if>
+			<if test="gbn=='check_id'">
+				user_id = #{user_id}
+			</if>
+			<if test="gbn=='check_email'">
+				email = #{email}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertUserInfo" parameterType="com.leeyh85.model.UserModel">
+		INSERT INTO TBL_USER (
+			state, user_id, password, email, insert_date, update_date
+		) VALUES (
+			1, #{user_id}, #{password}, #{email}, now(), now()
+		)
+	</insert>
+</mapper>

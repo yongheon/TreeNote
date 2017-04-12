@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+							http://www.springframework.org/schema/tx
+							http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+							http://www.springframework.org/schema/context 
+							http://www.springframework.org/schema/context/spring-context-4.0.xsd
+							http://www.springframework.org/schema/util 
+							http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- dataSource : 커넥션풀. ref를 통해 커넥션풀과 wired됨 -->
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
+	<!-- 서버 재시작 없이 mybatis mapper xml 파일을 reloading 하는 클래스 -->
+	<bean id="sqlSessionFactory" class="com.leeyh85.common.util.RefreshableSqlSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" />
+		<!-- value:문자열타입 / ref:참조타입=@Autowired -->
+		<!-- mybatis 설정파일(mybatis-config.xml-원래 들어가는 내용은 커넥션풀생성코드, mapper파일위치-나머지는 default)의 위치도 알고, mapper파일(클래스)의 위치도 알아야함 -->
+		<!-- classpath : 프로젝트 위치. src 폴더 안에 -->
+		<property name="mapperLocations" value="classpath:mapper/**/*.xml" />
+		<property name="configLocation" value="/WEB-INF/spring/mybatis-config.xml" />		
+	</bean>
+	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- scan for mappers and let them be autowired -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.leeyh85.mapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+	
+	<!-- 설정 정보 -->
+	<util:properties id="ConfigProperties" location="classpath:config/properties/config.properties" />
+</beans>

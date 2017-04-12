@@ -1,0 +1,19 @@
+
+body {font-size:12px; background-color:#fafafa;}
+body, table, th {color:#333;}
+input {background-color:#fff; border:1px solid #ccc; padding:5px; font-size:15px; color:#333;}
+	
+
+#loginCWrap {width:100%; background:url(../images/login/bg.png) center top no-repeat; padding:104px 0 59px 0;}
+#loginCWrap .bg {width:1192px; height:580px; padding:15px 0 0 0; margin:0 auto; background:url(../images/login/bgimg.png) center top no-repeat;}
+#loginCWrap .box {width:660px; height:390px; z-index:1; position:absolute; margin-left:355px;}
+#loginCWrap .box .logo {padding:28px 0 11px 126px;}
+#loginCWrap .box table {width:516px; height:166px; background-color:#edf3fc; border:solid 1px #dce0e7; margin:0 auto;}
+#loginCWrap .box th {padding-left:60px; text-align:left; font-weight:normal; font-size:16px;}
+#loginCWrap .box .text01 {padding:15px 0 0 62px; vertical-align:top;}
+#loginCWrap .nobd {border:none; vertical-align:middle; margin-bottom:1px; width:auto;}
+#loginCWrap .copy {font-family:"돋움", Dotum; color:#999; text-align:center; word-spacing:-1px; padding-top:26px; line-height:25px;}
+#loginCWrap .vm {vertical-align:middle;}
+#loginCWrap  a {color:#333; text-decoration:none;}
+#loginCWrap  a:hover {text-decoration:underline;}
+#loginCWrap  .copy a {color:#333; text-decoration:underline;}

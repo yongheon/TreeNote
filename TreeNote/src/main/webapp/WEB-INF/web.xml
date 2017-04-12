@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" 
+ 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<!-- 한글 UTF-8 설정을 한다면 해주어야 할 설정  -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<!-- 위에 설정한 encodingFilter 를 적용할 URL 패턴을 설정한다 ( .stp , .jsp 확장자는 전부 적용됨)  -->
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<!--<param-value>/WEB-INF/spring/root-context.xml</param-value>-->
+		<param-value>/WEB-INF/spring/context-*.xml</param-value>
+	</context-param>
+	
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Processes application requests -->
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<!-- <url-pattern>/</url-pattern> -->
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 처리할 수 없는 요청은 컨테이너(톰캣)에게 위임하는 설정 -->
+ 	<!-- 정적인 요소들(html, js, css, gif)을 넘김 -->
+	<mvc:default-servlet-handler/>
+	
+	<!-- <listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener> -->
+	
+	<!-- Tag 라이브러리 파일도 지정해 준다. -->
+	<!-- <jsp-config>
+		<taglib>
+			<taglib-uri>/WEB-INF/cosntCustom.tld</taglib-uri>
+			<taglib-location>
+				/WEB-INF/tld/cosntCustom.tld
+			</taglib-location>
+		</taglib>
+	</jsp-config> -->
+	
+</web-app>
